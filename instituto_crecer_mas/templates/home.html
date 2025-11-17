@@ -1,0 +1,149 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio</title>
+
+    <style>
+        /* ===== GENERAL ===== */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #c7eaff; /* 🔵 Fondo celeste */
+        }
+
+        /* ===== NAVBAR ===== */
+        nav {
+            width: 100%;
+            height: 70px;
+            background: #004d74;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0px 2px 5px rgba(0,0,0,0.3);
+            box-sizing: border-box;
+        }
+
+        .logo img {
+            height: 55px;
+            cursor: pointer;
+            border-radius: 12px; /* 🔵 Bordes redondeados */
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 8px 10px;
+        }
+
+        nav ul li a:hover {
+            background: #006c9c;
+            border-radius: 5px;
+        }
+
+        /* ===== CONTENIDO ===== */
+        .content {
+            padding: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #00334d;
+        }
+
+        /* ===== CARRUSEL ===== */
+        .carousel-container {
+            width: 90%;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        .carousel {
+            display: flex;
+            gap: 20px;
+            padding: 20px 0;
+            animation: scroll 15s linear infinite;
+        }
+
+        .card {
+            min-width: 250px;
+            height: 180px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #004d74;
+        }
+
+        /* 🔄 Animación automática del carrusel */
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav>
+        <a href="/" class="logo">
+            <img src="{% static 'img/logo5.png' %}" alt="Instituto Crecer Más">
+        </a>
+
+        <ul>
+            <li><a href="/login/">Login</a></li>
+            <li><a href="/signup/">Sign Up</a></li>
+            <li><a href="/estudiantes/">Estudiantes</a></li>
+            <li><a href="/docentes/">Docentes</a></li>
+        </ul>
+    </nav>
+
+    <!-- ===== CONTENIDO ===== -->
+    <div class="content">
+        <h1>Bienvenido al Sistema del Instituto Crecer Más</h1>
+
+        <!-- ===== CARRUSEL ===== -->
+        <div class="carousel-container">
+            <div class="carousel">
+                <div class="card">Cursos Online</div>
+                <div class="card">Plataforma Estudiantes</div>
+                <div class="card">Docentes</div>
+                <div class="card">Matrículas</div>
+                <div class="card">Certificaciones</div>
+                <div class="card">Ayuda</div>
+
+                <!-- Duplicadas para loop infinito -->
+                <div class="card">Cursos Online</div>
+                <div class="card">Plataforma Estudiantes</div>
+                <div class="card">Docentes</div>
+                <div class="card">Matrículas</div>
+                <div class="card">Certificaciones</div>
+                <div class="card">Ayuda</div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
+
