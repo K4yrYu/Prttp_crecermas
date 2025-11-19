@@ -76,13 +76,13 @@ input {
 
 .descripcion {
     font-size: 18px;
-    width: 60%;
-    margin: 0 auto 25px auto;
+    width: 70%;
+    margin: 20px auto;
+    padding: 25px;
     color: #00334d;
-    line-height: 1.6;
     background: white;
-    padding: 20px 25px;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    text-align: justify;
+    text-align: justify;  /* Hace que el texto quede más ordenado */
+    line-height: 1.6;
 }
