@@ -1,0 +1,474 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel Docente</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #c7eaff;
+        }
+
+        /* NAVBAR */
+        nav {
+            width: 100%; height: 70px;
+            background: #004d74; 
+            color: white;
+            display: none; 
+            justify-content: space-between;
+            align-items: center; 
+            padding: 0 20px;
+            box-shadow: 0px 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .nav-left { display: flex; align-items: center; gap: 15px; }
+
+        .logo img {
+            height: 55px;
+            cursor: pointer;
+            border-radius: 12px;
+        }
+
+        .site-title { font-size: 22px; font-weight: bold; }
+
+        nav ul { 
+            list-style: none;
+            display: flex; 
+            gap: 20px; 
+            margin: 0; padding: 0; 
+        }
+
+        nav ul li a {
+            color: white; 
+            text-decoration: none;
+            font-size: 16px; 
+            padding: 8px 10px;
+            border-radius: 5px;
+        }
+
+        nav ul li a:hover { background: #006c9c; }
+
+        /* CONTENIDO */
+        .content { padding: 30px; display:none; }
+
+        h1 {
+            font-size: 32px; 
+            color: #00334d;
+            text-align: center;
+        }
+
+        .card {
+            background: white;
+            width: 90%;
+            max-width: 850px;
+            margin: 15px auto;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+        }
+
+        .card-title {
+            font-size: 22px;
+            color: #00334d;
+            margin-bottom: 10px;
+        }
+
+        table { width: 100%; border-collapse: collapse; }
+
+        th {
+            background: #004d74;
+            color: white;
+            padding: 12px;
+            text-align: center;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #dbe7ef;
+            font-size: 17px;
+            color: #00334d;
+            text-align: center;
+        }
+
+        .btn-notas,
+        .btn-agregar {
+            background: #006c9c;
+            color: white;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-notas:hover,
+        .btn-agregar:hover { background: #005880; }
+
+        .notas-detalle {
+            display: none;
+            background: #f3fbff;
+            border-left: 4px solid #0a6fa8;
+            padding: 10px 15px;
+            margin-top: 8px;
+            border-radius: 8px;
+        }
+
+        .nota-item {
+            background: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin: 6px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-left: 4px solid #0077b6;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        footer {
+            background:#004d74;
+            color:white;
+            text-align:center;
+            padding:15px 0;
+            font-size:14px;
+            display:none;
+        }
+
+        /* === DISEÑO MEJORADO PARA CURSO & ALUMNO === */
+        .select-box {
+            width: 90%;
+            max-width: 380px;
+            margin: 60px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+            text-align: center;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        .select-box h2 {
+            color: #00334d;
+            font-size: 26px;
+            margin-bottom: 15px;
+        }
+
+        .select-box img {
+            width: 120px;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+
+        .select-box select {
+            width: 85%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #0077b6;
+            font-size: 16px;
+            color: #00334d;
+            margin-top: 10px;
+            background: #f0f8ff;
+        }
+
+        .select-box button {
+            width: 88%;
+            padding: 12px;
+            background: #0077b6;
+            border: none;
+            color: white;
+            border-radius: 8px;
+            font-size: 17px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .select-box button:hover {
+            background: #005c8a;
+            transform: scale(1.03);
+        }
+
+        /* ALERTA BONITA */
+        .alert-box-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.45);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease-in-out;
+            z-index: 9999;
+        }
+
+        .alert-box {
+            width: 90%;
+            max-width: 380px;
+            background: white;
+            padding: 25px;
+            border-radius: 14px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+        }
+
+        .alert-box img {
+            width: 100px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .alert-box p {
+            font-size: 18px;
+            color: #00334d;
+            margin-bottom: 20px;
+            white-space: pre-line;
+        }
+
+        .alert-box button {
+            background: #0077b6;
+            color: white;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.2s;
+        }
+
+        .alert-box button:hover {
+            background: #005c8a;
+            transform: scale(1.03);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- SELECCIÓN DE CURSO -->
+<div id="selectCurso" class="select-box">
+    <img src="{% static 'img/logo5.png' %}" alt="Curso">
+    <h2>Seleccione un Curso</h2>
+
+    <select id="curso">
+        <option value="">Seleccione un curso</option>
+        <option value="8A">8°A</option>
+    </select>
+
+    <button onclick="elegirCurso()">Continuar</button>
+</div>
+
+<!-- SELECCIÓN DE ALUMNO -->
+<div id="selectAlumno" class="select-box" style="display:none;">
+    <img src="{% static 'img/logo5.png' %}" alt="Alumno">
+    <h2>Seleccione un Alumno</h2>
+
+    <select id="alumno">
+        <option value="">Seleccione un alumno</option>
+        <option value="Juan Carrasco">Juan Carrasco</option>
+    </select>
+
+    <button onclick="elegirAlumno()">Ver Notas</button>
+</div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+    <div class="nav-left">
+        <a href="/" class="logo">
+            <img src="{% static 'img/logo5.png' %}" alt="Instituto Crecer Más">
+        </a>
+        <div class="site-title">INSTITUTO CRECER MÁS</div>
+    </div>
+
+    <ul>
+        <li><a href="#">Panel Docente</a></li>
+    </ul>
+</nav>
+
+<!-- PANEL DOCENTE -->
+<div class="content" id="panel">
+
+    <h1>Notas y Asignaturas</h1>
+
+    <div class="card">
+        <div class="card-title">Juan Carrasco</div>
+
+        <table>
+            <tr>
+                <th>Asignatura</th>
+                <th>Promedio</th>
+                <th>Notas</th>
+            </tr>
+            <tbody id="tabla-asignaturas"></tbody>
+        </table>
+    </div>
+
+</div>
+
+<footer id="footer">
+    © 2025 Instituto Crecer Más — Todos los derechos reservados
+</footer>
+
+<script>
+
+/* ALERTA BONITA */
+function mostrarAlertaBonita(msg) {
+    const overlay = document.createElement("div");
+    overlay.className = "alert-box-overlay";
+
+    overlay.innerHTML = `
+        <div class="alert-box">
+            <img src="{% static 'img/logo5.png' %}" alt="Logo">
+            <p>${msg}</p>
+            <button onclick="this.parentElement.parentElement.remove()">Aceptar</button>
+        </div>
+    `;
+
+    document.body.appendChild(overlay);
+}
+
+/* SELECCIÓN DE CURSO */
+function elegirCurso(){
+    const c = document.getElementById("curso").value;
+    if(c === "") return mostrarAlertaBonita("Debe seleccionar un curso.");
+
+    document.getElementById("selectCurso").style.display="none";
+    document.getElementById("selectAlumno").style.display="block";
+}
+
+/* SELECCIÓN DE ALUMNO */
+function elegirAlumno(){
+    const a = document.getElementById("alumno").value;
+    if(a === "") return mostrarAlertaBonita("Debe seleccionar un alumno.");
+
+    document.getElementById("selectAlumno").style.display="none";
+    document.getElementById("navbar").style.display="flex";
+    document.getElementById("panel").style.display="block";
+    document.getElementById("footer").style.display="block";
+}
+
+/* DATOS DE NOTAS */
+const asignaturas = {
+    "Matemáticas": [6.5, 6.1, 5.5, 7.0],
+    "Lenguaje": [5.5, 6.0, 5.8],
+    "Ciencias": [6.8, 7.1, 6.5],
+    "Historia": [5.9, 6.0, 6.2, 5.8],
+    "Inglés": [6.7, 6.9, 7.0],
+    "Educación Física": [7.0, 6.8],
+    "Tecnología": [6.2, 6.5, 6.8]
+};
+
+/* CÁLCULO PROMEDIO */
+function calcPromedio(arr) {
+    return (arr.reduce((a,b)=>a+b,0) / arr.length).toFixed(1).replace(".", ",");
+}
+
+/* BLOQUEO DE LENGUAJE + RENDER */
+function renderNotas(idLista, materia) {
+    if (materia === "Lenguaje") {
+        mostrarAlertaBonita("Usted no es docente de esta asignatura.\nElija su asignatura correcta por favor.");
+        return false;
+    }
+
+    const cont = document.getElementById(idLista);
+    cont.innerHTML = "";
+
+    asignaturas[materia].forEach((nota, index) => {
+        cont.innerHTML += `
+            <div class="nota-item">
+                <span>Prueba ${index+1}:</span>
+                <input type="number" step="0.1" min="1" max="7" value="${nota}" 
+                onchange="editarNota('${materia}', ${index}, this.value)">
+            </div>`;
+    });
+
+    cont.innerHTML += `
+        <button class="btn-agregar" onclick="agregarNota('${materia}', '${idLista}')">Agregar Nota</button>`;
+}
+
+/* BLOQUEO DE LENGUAJE AL ABRIR PANEL */
+function toggleNotas(id, materia) {
+    if (materia === "Lenguaje") {
+        mostrarAlertaBonita("Usted no es docente de esta asignatura.\nElija su asignatura correcta por favor.");
+        return false;
+    }
+
+    const box = document.getElementById(id);
+    box.style.display = (box.style.display === "block" ? "none" : "block");
+}
+
+/* EDITAR NOTA */
+function editarNota(materia, index, valor) {
+    asignaturas[materia][index] = parseFloat(valor);
+    actualizarTabla();
+}
+
+/* AGREGAR NOTA */
+function agregarNota(materia, idLista) {
+    if (materia === "Lenguaje") {
+        mostrarAlertaBonita("Usted no es docente de esta asignatura.\nElija su asignatura correcta por favor.");
+        return false;
+    }
+
+    const nota = parseFloat(prompt("Nueva nota (1.0 a 7.0):"));
+    if(nota >= 1 && nota <= 7){
+        asignaturas[materia].push(nota);
+        renderNotas(idLista, materia);
+        actualizarTabla();
+    } else {
+        mostrarAlertaBonita("Nota inválida (solo entre 1.0 y 7.0).");
+    }
+}
+
+/* ACTUALIZAR TABLA */
+function actualizarTabla() {
+    const tabla = document.getElementById("tabla-asignaturas");
+    tabla.innerHTML = "";
+    let index = 0;
+
+    for (const materia in asignaturas) {
+        const notas = asignaturas[materia];
+        const promedio = calcPromedio(notas);
+        const id = "notas-" + index;
+        const listaID = "lista-" + index;
+
+        tabla.innerHTML += `
+            <tr>
+                <td>${materia}</td>
+                <td>${promedio}</td>
+                <td>
+                    <button class="btn-notas" 
+                        onclick="if (toggleNotas('${id}', '${materia}') !== false) 
+                                 renderNotas('${listaID}', '${materia}')">
+                        Ver notas
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <div id="${id}" class="notas-detalle">
+                        <strong>Notas registradas:</strong>
+                        <div id="${listaID}"></div>
+                    </div>
+                </td>
+            </tr>
+        `;
+
+        index++;
+    }
+}
+
+actualizarTabla();
+</script>
+
+</body>
+</html>

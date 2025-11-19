@@ -13,9 +13,6 @@
             margin: 0;
             font-family: Arial, sans-serif;
             background: #c7eaff;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
         }
 
         /* NAVBAR */
@@ -38,121 +35,230 @@
         }
         nav ul li a:hover { background: #006c9c; }
 
-        /* CONTENIDO */
-        .content { padding: 30px; flex: 1; text-align: center; }
+        .content { padding: 30px; }
 
         h1 {
             font-size: 32px; color: #00334d;
-            margin-bottom: 25px; position: relative; display: inline-block;
-        }
-        h1::after {
-            content: ""; width: 100%; height: 4px;
-            background: #004d74; position: absolute;
-            left: 0; bottom: -8px; border-radius: 2px;
+            margin-bottom: 25px; text-align: center;
         }
 
-        .box {
+        /* TARJETAS */
+        .card {
             background: white;
-            width: 85%; max-width: 900px;
-            margin: 25px auto; padding: 25px;
+            width: 90%;
+            max-width: 850px;
+            margin: 15px auto;
+            padding: 20px;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.25);
         }
 
-        table {
-            width: 100%; border-collapse: collapse; margin-top: 15px;
-        }
-        th, td {
-            padding: 12px;
-            border-bottom: 2px solid #d9e7f0;
-            font-size: 17px; color: #00334d;
-        }
-        th { background: #004d74; color: white; }
-
-        .porcentaje { font-weight: bold; color: #006c9c; }
-
-        .asistencia-title {
+        .card-title {
             font-size: 22px;
-            font-weight: bold;
-            color: #004d74;
-            text-align: left;
+            color: #00334d;
             margin-bottom: 10px;
         }
 
+        /* Tabla */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th {
+            background: #004d74;
+            color: white;
+            padding: 12px;
+            text-align: center;
+        }
+
+        /* 🔥 Corrección definitiva 🔥 */
+        th:first-child {
+            text-align: left !important;
+            padding-left: 12px;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #dbe7ef;
+            color: #00334d;
+            font-size: 17px;
+            text-align: center;
+        }
+
+        td:first-child {
+            text-align: left !important;
+            padding-left: 12px;
+        }
+
+        .porcentaje { color: #006c9c; font-weight: bold; }
+
+        /* BOTÓN */
+        .btn-notas {
+            background: #006c9c;
+            color: white;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn-notas:hover { background: #005880; }
+
+        /* PANEL DESPLEGABLE */
+        .notas-detalle {
+            display: none;
+            background: #f3fbff;
+            border-left: 4px solid #0a6fa8;
+            padding: 10px 15px;
+            margin-top: 8px;
+            border-radius: 8px;
+        }
+
+        /* Lista de notas bonita */
+        .lista-notas p {
+            background: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin: 6px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-left: 4px solid #0077b6;
+            font-size: 15px;
+        }
+
         footer {
-            background:#004d74; color:white;
-            text-align:center; padding:15px 0;
-            margin-top:auto; font-size:14px;
+            background:#004d74;
+            color:white;
+            text-align:center;
+            padding:15px 0;
+            margin-top:30px;
+            font-size:14px;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- NAV -->
-    <nav>
-        <div class="nav-left">
-            <a href="/" class="logo"><img src="{% static 'img/logo5.png' %}" alt="Logo"></a>
-            <div class="site-title">INSTITUTO CRECER MÁS</div>
-        </div>
+<nav>
+    <div class="nav-left">
+        <a href="/" class="logo"><img src="{% static 'img/logo5.png' %}" alt="Logo"></a>
+        <div class="site-title">INSTITUTO CRECER MÁS</div>
+    </div>
 
-        <ul>
-            <li><a href="/login/">Iniciar Sesión</a></li>
-            <li><a href="/docentes/">Docentes</a></li>
-            <li><a href="/estudiantes/">Estudiantes</a></li>
-        </ul>
-    </nav>
+    <ul>
+        <li><a href="/login/">Iniciar Sesión</a></li>
+        <li><a href="/docentes/">Docentes</a></li>
+        <li><a href="/estudiantes/">Estudiantes</a></li>
+    </ul>
+</nav>
 
-    <div class="content">
+<div class="content">
 
-        <h1>Notas y Asistencia</h1>
+    <h1>Notas y Asistencia</h1>
 
-        <!-- NOTAS -->
-        <div class="box">
-            <h2 style="color:#00334d; text-align:left;">Asignaturas y Notas</h2>
+    <!-- TARJETA DE NOTAS -->
+    <div class="card">
+        <div class="card-title">Asignaturas y Notas</div>
 
-            <table>
-                <tr>
-                    <th>Asignatura</th>
-                    <th>Nota Final</th>
-                    <th>Porcentaje</th>
-                </tr>
+        <table>
+            <tr>
+                <th>Asignatura</th>
+                <th>Promedio</th>
+                <th>Notas</th>
+            </tr>
 
-                <tr><td>Matemáticas</td><td>6.2</td><td class="porcentaje">78%</td></tr>
-                <tr><td>Lenguaje</td><td>5.8</td><td class="porcentaje">72%</td></tr>
-                <tr><td>Ciencias</td><td>6.5</td><td class="porcentaje">81%</td></tr>
-                <tr><td>Historia</td><td>5.9</td><td class="porcentaje">74%</td></tr>
-                <tr><td>Inglés</td><td>6.8</td><td class="porcentaje">85%</td></tr>
-
-            </table>
-        </div>
-
-        <!-- ASISTENCIA POR ASIGNATURA -->
-        <div class="box">
-            <div class="asistencia-title">Asistencia por Asignatura</div>
-
-            <table>
-                <tr>
-                    <th>Asignatura</th>
-                    <th>Días Asistidos</th>
-                    <th>Total de Clases</th>
-                    <th>Porcentaje</th>
-                </tr>
-
-                <tr><td>Matemáticas</td><td>18</td><td>20</td><td class="porcentaje">90%</td></tr>
-                <tr><td>Lenguaje</td><td>17</td><td>20</td><td class="porcentaje">85%</td></tr>
-                <tr><td>Ciencias</td><td>19</td><td>22</td><td class="porcentaje">86%</td></tr>
-                <tr><td>Historia</td><td>20</td><td>22</td><td class="porcentaje">91%</td></tr>
-                <tr><td>Inglés</td><td>21</td><td>22</td><td class="porcentaje">95%</td></tr>
-
-            </table>
-        </div>
+            <tbody id="tabla-asignaturas"></tbody>
+        </table>
 
     </div>
 
-    <footer>
-        © 2025 Instituto Crecer Más — Todos los derechos reservados
-    </footer>
+    <!-- TARJETA ASISTENCIA -->
+    <div class="card">
+        <div class="card-title">Asistencia por Asignatura</div>
+
+        <table>
+            <tr>
+                <th>Asignatura</th>
+                <th>Días Asistidos</th>
+                <th>Total</th>
+                <th>Porcentaje</th>
+            </tr>
+
+            <tr><td>Matemáticas</td><td>18</td><td>20</td><td class="porcentaje">90%</td></tr>
+            <tr><td>Lenguaje</td><td>17</td><td>20</td><td class="porcentaje">85%</td></tr>
+            <tr><td>Ciencias</td><td>20</td><td>22</td><td class="porcentaje">91%</td></tr>
+            <tr><td>Historia</td><td>21</td><td>22</td><td class="porcentaje">95%</td></tr>
+            <tr><td>Inglés</td><td>22</td><td>22</td><td class="porcentaje">100%</td></tr>
+
+        </table>
+    </div>
+
+</div>
+
+<footer>
+    © 2025 Instituto Crecer Más — Todos los derechos reservados
+</footer>
+
+<script>
+    function toggleNotas(id) {
+        const box = document.getElementById(id);
+        box.style.display = (box.style.display === "block") ? "none" : "block";
+    }
+
+    /* TODAS LAS ASIGNATURAS CON NOTAS */
+    const asignaturas = {
+        "Matemáticas": [6.5, 6.1, 5.5, 7.0],
+        "Lenguaje": [5.5, 6.0, 5.8],
+        "Ciencias": [6.8, 7.1, 6.5],
+        "Historia": [5.9, 6.0, 6.2, 5.8],
+        "Inglés": [6.7, 6.9, 7.0],
+        "Educación Física": [7.0, 6.8],
+        "Tecnología": [6.2, 6.5, 6.8]
+    };
+
+    function calcPromedio(arr) {
+        const sum = arr.reduce((a,b)=>a+b,0);
+        return (sum / arr.length).toFixed(1).replace(".", ",");
+    }
+
+    function renderNotas(id, arr) {
+        const cont = document.getElementById(id);
+        cont.innerHTML = "";
+        arr.forEach((nota, i) => {
+            cont.innerHTML += `<p>Prueba ${i+1}: ${nota.toFixed(1).replace(".", ",")}</p>`;
+        });
+    }
+
+    const tabla = document.getElementById("tabla-asignaturas");
+    let index = 0;
+
+    for (const materia in asignaturas) {
+        const notas = asignaturas[materia];
+        const promedio = calcPromedio(notas);
+        const id = "notas-" + index;
+        const listaID = "lista-" + index;
+
+        tabla.innerHTML += `
+            <tr>
+                <td>${materia}</td>
+                <td>${promedio}</td>
+                <td><button class="btn-notas" onclick="toggleNotas('${id}')">Ver notas</button></td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <div id="${id}" class="notas-detalle">
+                        <strong>Notas registradas:</strong>
+                        <div id="${listaID}" class="lista-notas"></div>
+                    </div>
+                </td>
+            </tr>
+        `;
+
+        setTimeout(()=>renderNotas(listaID, notas), 50);
+
+        index++;
+    }
+</script>
 
 </body>
 </html>
+

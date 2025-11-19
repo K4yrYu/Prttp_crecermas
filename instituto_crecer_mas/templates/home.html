@@ -75,26 +75,36 @@
             flex: 1;
         }
 
-        .descripcion {
-            font-size: 18px;
-            width: 75%;
-            margin: 30px auto;
-            color: #00334d;
-            text-align: justify;
-            line-height: 1.8;
-
-            background: #e8f6ff;
-            padding: 20px 25px;
-            border-left: 6px solid #004d74;
-            border-radius: 8px;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+        /* === NUEVO DISEÑO DEL MENSAJE === */
+        .home-box {
+            width: 90%;
+            max-width: 650px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+            text-align: center;
+            animation: fadeIn 0.6s ease-in-out;
         }
 
+        .home-box img {
+            width: 120px;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
 
-        h1 {
-            font-size: 32px;
-            margin-bottom: 20px;
+        .home-box p {
+            font-size: 18px;
             color: #00334d;
+            line-height: 1.7;
+            text-align: justify;
+            padding: 0 10px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* ===== CARDS ===== */
@@ -134,22 +144,20 @@
             text-align: center;
         }
 
-       .matriculas {
-        font-size: 30px;
-        font-weight: bold;
-        color: #004d74;
-        margin-top: 30px;
-        text-align: center;
-        animation: pulse 1.8s infinite ease-in-out;
-    }
+        .matriculas {
+            font-size: 30px;
+            font-weight: bold;
+            color: #004d74;
+            margin-top: 30px;
+            text-align: center;
+            animation: pulse 1.8s infinite ease-in-out;
+        }
 
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-        100% { transform: scale(1); }
-    }
-
-
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
 
         /* ===== FOOTER ===== */
         footer {
@@ -176,21 +184,26 @@
         </div>
 
         <ul>
-            <li><a style="font-family: Arial, Helvetica, sans-serif;" href="/login/">Iniciar Sesión</a></li>
-            <li><a style="font-family: Arial, Helvetica, sans-serif;" href="/docentes/">Docentes</a></li>
-            <li><a style="font-family: Arial, Helvetica, sans-serif;" href="/estudiantes/">Estudiantes</a></li>
+            <li><a href="/login/">Iniciar Sesión</a></li>
+            <li><a href="/docentes/">Docentes</a></li>
+            <li><a href="/estudiantes/">Estudiantes</a></li>
         </ul>
     </nav>
 
     <!-- ===== CONTENIDO ===== -->
     <div class="content">
 
-        <p class="descripcion">
-            Bienvenido a la página oficial del Instituto Crecer Más.
-            Aquí podrás conocer toda la información relacionada a las distintas sedes con las que cuenta la institución, 
-            en las cuales nos encargaremos de educar de la mejor forma a las generaciones venideras con enseñanzas que les permitiran desarrollarse
-            tanto en el ambito profesional, como personal.
-        </p>
+        <!-- NUEVO MENSAJE ESTILO SELECT-BOX -->
+        <div class="home-box">
+            <img src="{% static 'img/logo5.png' %}" alt="Instituto Crecer Más">
+
+            <p>
+                Bienvenido a la página oficial del Instituto Crecer Más.
+                Aquí podrás conocer toda la información relacionada a las distintas sedes con las que cuenta la institución,
+                en las cuales nos encargaremos de educar de la mejor forma a las generaciones venideras con enseñanzas que les permitirán desarrollarse
+                tanto en el ámbito profesional como personal.
+            </p>
+        </div>
 
         <h1>Sedes</h1>
 
