@@ -30,7 +30,7 @@
         .logo img {
             height: 55px;
             cursor: pointer;
-            border-radius: 12px; /* 🔵 Bordes redondeados */
+            border-radius: 12px;
         }
 
         nav ul {
@@ -65,40 +65,42 @@
             color: #00334d;
         }
 
-        /* ===== CARRUSEL ===== */
-        .carousel-container {
+        /* ===== CARDS ===== */
+        .cards-container {
             width: 90%;
-            margin: auto;
-            overflow: hidden;
-        }
-
-        .carousel {
+            margin: 40px auto;
             display: flex;
-            gap: 20px;
-            padding: 20px 0;
-            animation: scroll 15s linear infinite;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
         }
 
-        .card {
-            min-width: 250px;
-            height: 180px;
+        .card-box {
+            width: 280px;
             background: white;
             border-radius: 15px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 18px;
-            font-weight: bold;
+            overflow: hidden;
+            transition: 0.2s;
+        }
+
+        .card-box:hover {
+            transform: scale(1.05);
+        }
+
+        .card-box img {
+            width: 100%;
+            height: 170px;
+            object-fit: cover;
+        }
+
+        .card-title {
+            padding: 15px;
+            font-size: 20px;
             color: #004d74;
+            font-weight: bold;
+            text-align: center;
         }
-
-        /* 🔄 Animación automática del carrusel */
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
     </style>
 </head>
 
@@ -111,39 +113,35 @@
         </a>
 
         <ul>
-            <li><a href="/login/">Login</a></li>
-            <li><a href="/signup/">Sign Up</a></li>
-            <li><a href="/estudiantes/">Estudiantes</a></li>
-            <li><a href="/docentes/">Docentes</a></li>
+            <li><a style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" href="/login/">Iniciar Sesión</a></li>
         </ul>
     </nav>
 
     <!-- ===== CONTENIDO ===== -->
     <div class="content">
-        <h1>Bienvenido al Sistema del Instituto Crecer Más</h1>
+        <h1>Sedes</h1>
 
-        <!-- ===== CARRUSEL ===== -->
-        <div class="carousel-container">
-            <div class="carousel">
-                <div class="card">Cursos Online</div>
-                <div class="card">Plataforma Estudiantes</div>
-                <div class="card">Docentes</div>
-                <div class="card">Matrículas</div>
-                <div class="card">Certificaciones</div>
-                <div class="card">Ayuda</div>
+        <!-- ===== TRES CARDS ===== -->
+        <div class="cards-container">
 
-                <!-- Duplicadas para loop infinito -->
-                <div class="card">Cursos Online</div>
-                <div class="card">Plataforma Estudiantes</div>
-                <div class="card">Docentes</div>
-                <div class="card">Matrículas</div>
-                <div class="card">Certificaciones</div>
-                <div class="card">Ayuda</div>
+            <div class="card-box">
+                <div class="card-title">Maipú</div>
+                <img src="{% static 'img/Maipu.png' %}" alt="Imagen 1">
             </div>
+
+            <div class="card-box">
+                <div class="card-title">San Bernardo</div>
+                <img src="{% static 'img/Sanbernardo.png' %}" alt="Imagen 2">
+            </div>
+
+            <div class="card-box">
+                <div class="card-title">Renca</div>
+                <img src="{% static 'img/Renca.png' %}" alt="Imagen 3">
+            </div>
+
         </div>
 
     </div>
 
 </body>
 </html>
-
