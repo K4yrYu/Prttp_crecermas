@@ -11,6 +11,9 @@
             margin: 0;
             font-family: Arial, sans-serif;
             background: #c7eaff; /* 🔵 Fondo celeste */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         /* ===== NAVBAR ===== */
@@ -27,10 +30,22 @@
             box-sizing: border-box;
         }
 
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
         .logo img {
             height: 55px;
             cursor: pointer;
             border-radius: 12px;
+        }
+
+        .site-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: white;
         }
 
         nav ul {
@@ -57,6 +72,14 @@
         .content {
             padding: 30px;
             text-align: center;
+            flex: 1;
+        }
+
+        .descripcion {
+            font-size: 18px;
+            width: 70%;
+            margin: 0 auto 20px auto;
+            color: #00334d;
         }
 
         h1 {
@@ -101,6 +124,17 @@
             font-weight: bold;
             text-align: center;
         }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #004d74;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: auto;
+            font-size: 14px;
+        }
+
     </style>
 </head>
 
@@ -108,22 +142,31 @@
 
     <!-- ===== NAVBAR ===== -->
     <nav>
-        <a href="/" class="logo">
-            <img src="{% static 'img/logo5.png' %}" alt="Instituto Crecer Más">
-        </a>
+        <div class="nav-left">
+            <a href="/" class="logo">
+                <img src="{% static 'img/logo5.png' %}" alt="Instituto Crecer Más">
+            </a>
+            <div class="site-title">INSTITUTO CRECER MÁS</div>
+        </div>
 
         <ul>
-            <li><a style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" href="/login/">Iniciar Sesión</a></li>
+            <li><a style="font-family: Arial, Helvetica, sans-serif;" href="/login/">Iniciar Sesión</a></li>
         </ul>
     </nav>
 
     <!-- ===== CONTENIDO ===== -->
     <div class="content">
+
+        <p class="descripcion">
+            Bienvenido a la página oficial del Instituto Crecer Más.
+            Aquí podrás conocer toda la información relacionada a las distintas sedes con las que cuenta la institución, 
+            en las cuales nos encargaremos de educar de la mejor forma a las generaciones venideras con enseñanzas que les permitiran desarrollarse
+            tanto en el ambito profesional, como personal.
+        </p>
+
         <h1>Sedes</h1>
 
-        <!-- ===== TRES CARDS ===== -->
         <div class="cards-container">
-
             <div class="card-box">
                 <div class="card-title">Maipú</div>
                 <img src="{% static 'img/Maipu.png' %}" alt="Imagen 1">
@@ -138,10 +181,14 @@
                 <div class="card-title">Renca</div>
                 <img src="{% static 'img/Renca.png' %}" alt="Imagen 3">
             </div>
-
         </div>
 
     </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        © 2025 Instituto Crecer Más — Todos los derechos reservados
+    </footer>
 
 </body>
 </html>
