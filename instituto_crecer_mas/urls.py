@@ -8,6 +8,8 @@ urlpatterns = [
     # Rutas de las apps
     path('docentes/', include('docentes.urls')),
     path('estudiantes/', include('estudiantes.urls')),
+    path('administrador/', include('administrador.urls')),
+    path('directivos/', include('directivos.urls')),
 
     # tus otras páginas
     path('', lambda request: render(request, 'home.html'), name='home'),

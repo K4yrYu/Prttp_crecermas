@@ -249,6 +249,14 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* --- ASISTENCIA --- */
+        .asistencia-percent {
+            font-size: 26px;
+            color: #0077b6;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 
@@ -286,12 +294,8 @@
         <a href="/" class="logo">
             <img src="{% static 'img/logo5.png' %}" alt="Instituto Crecer Más">
         </a>
-        <div class="site-title">INSTITUTO CRECER MÁS</div>
+        <div class="site-title">INSTITUTO CRECER MÁS  /  DOCENTE</div>
     </div>
-
-    <ul>
-        <li><a href="#">Panel Docente</a></li>
-    </ul>
 </nav>
 
 <!-- PANEL DOCENTE -->
@@ -312,14 +316,49 @@
         </table>
     </div>
 
-</div>
+    <!-- ================================================= -->
+    <!--               CARD DE ASISTENCIA                  -->
+    <!-- ================================================= -->
+
+    <h1>Asistencia</h1>
+
+    <div class="card">
+
+        <table>
+            <tr>
+                <th>Mes</th>
+                <th>Asistencias</th>
+                <th>Inasistencias</th>
+            </tr>
+
+            <tr><td>Marzo</td><td>18</td><td>2</td></tr>
+            <tr><td>Abril</td><td>20</td><td>0</td></tr>
+            <tr><td>Mayo</td><td>17</td><td>3</td></tr>
+            <tr><td>Junio</td><td>19</td><td>1</td></tr>
+
+            <!-- FILA TOTAL -->
+            <tr style="background:#e8f6ff; font-weight:bold;">
+                <td>Total</td>
+                <td id="total-asist"></td>
+                <td id="total-inasist"></td>
+            </tr>
+
+            <!-- FILA PORCENTAJE -->
+            <tr style="background:#d9f0ff; font-weight:bold;">
+                <td>Porcentaje</td>
+                <td colspan="2" id="percent-total"></td>
+            </tr>
+        </table>
+
+            </div>
+                
+        </div>
 
 <footer id="footer">
     © 2025 Instituto Crecer Más — Todos los derechos reservados
 </footer>
 
 <script>
-
 /* ALERTA BONITA */
 function mostrarAlertaBonita(msg) {
     const overlay = document.createElement("div");
@@ -469,6 +508,31 @@ function actualizarTabla() {
 
 actualizarTabla();
 </script>
+
+<script>
+/* Cálculo automático del total y porcentaje */
+function actualizarAsistencia() {
+    const rows = [
+        { asist: 18, inasist: 2 },
+        { asist: 20, inasist: 0 },
+        { asist: 17, inasist: 3 },
+        { asist: 19, inasist: 1 }
+    ];
+
+    const totalAsist = rows.reduce((t, r) => t + r.asist, 0);
+    const totalInasist = rows.reduce((t, r) => t + r.inasist, 0);
+
+    const totalClases = totalAsist + totalInasist;
+    const porcentaje = ((totalAsist / totalClases) * 100).toFixed(0) + "%";
+
+    document.getElementById("total-asist").textContent = totalAsist;
+    document.getElementById("total-inasist").textContent = totalInasist;
+    document.getElementById("percent-total").textContent = "📊 " + porcentaje + " de asistencia";
+}
+
+actualizarAsistencia();
+</script>
+
 
 </body>
 </html>

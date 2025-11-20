@@ -3,14 +3,14 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Inicio</title>
+    <title>Inicio - Matrículas</title>
 
     <style>
         /* ===== GENERAL ===== */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background: #c7eaff; /* 🔵 Fondo celeste */
+            background: #c7eaff;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -28,6 +28,7 @@
             padding: 0 20px;
             box-shadow: 0px 2px 5px rgba(0,0,0,0.3);
             box-sizing: border-box;
+            overflow: hidden;
         }
 
         .nav-left {
@@ -52,8 +53,6 @@
             list-style: none;
             display: flex;
             gap: 20px;
-            margin: 0;
-            padding: 0;
         }
 
         nav ul li a {
@@ -68,43 +67,34 @@
             border-radius: 5px;
         }
 
-        /* ===== CONTENIDO ===== */
+        /* ===== HOME CONTENT ===== */
         .content {
             padding: 30px;
             text-align: center;
             flex: 1;
         }
 
-        /* === NUEVO DISEÑO DEL MENSAJE === */
         .home-box {
             width: 90%;
-            max-width: 650px;
+            max-width: 900px;
             margin: 50px auto;
             background: white;
-            padding: 30px;
+            padding: 40px;
             border-radius: 14px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.25);
-            text-align: center;
-            animation: fadeIn 0.6s ease-in-out;
         }
 
         .home-box img {
-            width: 120px;
-            margin-bottom: 15px;
-            opacity: 0.9;
+            width: 140px;
+            margin-bottom: 20px;
         }
 
         .home-box p {
             font-size: 18px;
             color: #00334d;
-            line-height: 1.7;
+            line-height: 1.8;
             text-align: justify;
-            padding: 0 10px;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            padding: 0 20px;
         }
 
         /* ===== CARDS ===== */
@@ -154,10 +144,128 @@
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); }
             50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
         }
+
+        /* ===== PROCESO ===== */
+        .proceso-box {
+            width: 90%;
+            max-width: 900px;
+            margin: 40px auto;
+            background: white;
+            padding: 35px;
+            border-radius: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            text-align: center;
+        }
+
+        /* ===== BARRA DE PROGRESO ===== */
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: #d0e8f4;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: #004d74;
+            transition: 0.4s ease;
+        }
+
+        .step {
+            display: none;
+        }
+        .step.active {
+            display: block;
+        }
+
+        .step input,
+        .step select {
+            width: 80%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: 1px solid #9cc7dd;
+            font-size: 16px;
+        }
+
+        .btn-row {
+            width: 80%;
+            margin: 12px auto 0;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .btn-next, .btn-back, .btn-enviar {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn-next { background: #004d74; color: white; }
+        .btn-back { background: #9cc7dd; color: #00334d; }
+        .btn-enviar { background: #008c3a; color: white; }
+
+        /* ===== MODAL (ALERTAS BONITAS - OPCIÓN A) ===== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.45);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .modal {
+            width: 420px;
+            max-width: calc(100% - 40px);
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+        }
+
+        .modal .m-logo img {
+            width: 80px;
+            margin-bottom: 10px;
+        }
+
+        .modal h3 {
+            margin: 6px 0 8px;
+            color: #004d74;
+        }
+
+        .modal p {
+            color: #333;
+            line-height: 1.4;
+            margin-bottom: 16px;
+        }
+
+        .modal .m-actions {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .modal .m-btn {
+            padding: 10px 18px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .m-btn.ok { background: #004d74; color: white; }
+        .m-btn.cancel { background: #f0f0f0; color: #333; }
 
         /* ===== FOOTER ===== */
         footer {
@@ -169,70 +277,364 @@
             font-size: 14px;
         }
 
+        /* small tweak to avoid horizontal scroll */
+        * { box-sizing: border-box; }
     </style>
 </head>
 
 <body>
 
-    <!-- ===== NAVBAR ===== -->
+    <!-- NAVBAR -->
     <nav>
         <div class="nav-left">
-            <a href="/" class="logo">
-                <img src="{% static 'img/logo5.png' %}" alt="Instituto Crecer Más">
-            </a>
+            <a href="/" class="logo"><img src="{% static 'img/logo5.png' %}" alt="logo"></a>
             <div class="site-title">INSTITUTO CRECER MÁS</div>
         </div>
 
         <ul>
             <li><a href="/login/">Iniciar Sesión</a></li>
-            <li><a href="/docentes/">Docentes</a></li>
-            <li><a href="/estudiantes/">Estudiantes</a></li>
         </ul>
     </nav>
 
-    <!-- ===== CONTENIDO ===== -->
+    <!-- CONTENT -->
     <div class="content">
 
-        <!-- NUEVO MENSAJE ESTILO SELECT-BOX -->
         <div class="home-box">
-            <img src="{% static 'img/logo5.png' %}" alt="Instituto Crecer Más">
-
+            <img src="{% static 'img/logo4.png' %}" alt="logo">
             <p>
-                Bienvenido a la página oficial del Instituto Crecer Más.
-                Aquí podrás conocer toda la información relacionada a las distintas sedes con las que cuenta la institución,
-                en las cuales nos encargaremos de educar de la mejor forma a las generaciones venideras con enseñanzas que les permitirán desarrollarse
-                tanto en el ámbito profesional como personal.
+                Bienvenido a la página oficial del Instituto Crecer Más. Aquí podrás conocer toda la información relacionada a las distintas sedes con las que cuenta la institución,
+                en las cuales nos encargaremos de educar de la mejor forma a las generaciones venideras con enseñanzas que les permitirán desarrollarse tanto en el ámbito profesional como personal.
             </p>
         </div>
 
-        <h1>Sedes</h1>
+        <h1 style="color: #00334d;">Sedes</h1>
 
         <div class="cards-container">
-            <div class="card-box">
-                <div class="card-title">Maipú</div>
-                <img src="{% static 'img/Maipu.png' %}" alt="Imagen 1">
-            </div>
-
-            <div class="card-box">
-                <div class="card-title">San Bernardo</div>
-                <img src="{% static 'img/Sanbernardo.png' %}" alt="Imagen 2">
-            </div>
-
-            <div class="card-box">
-                <div class="card-title">Renca</div>
-                <img src="{% static 'img/Renca.png' %}" alt="Imagen 3">
-            </div>
+            <div class="card-box"><div class="card-title">Maipú</div><img src="{% static 'img/Maipu.png' %}" alt="Maipu"></div>
+            <div class="card-box"><div class="card-title">San Bernardo</div><img src="{% static 'img/Sanbernardo.png' %}" alt="San Bernardo"></div>
+            <div class="card-box"><div class="card-title">Renca</div><img src="{% static 'img/Renca.png' %}" alt="Renca"></div>
         </div>
 
-        <!-- ===== Texto de matrículas ===== -->
         <p class="matriculas">¡Matrículas Abiertas!</p>
+
+        <!-- PROCESO DE MATRÍCULA -->
+        <div class="proceso-box">
+
+            <h2>Proceso de Matrículas</h2>
+
+            <!-- BARRA DE PROGRESO -->
+            <div class="progress-bar" aria-hidden="true">
+                <div class="progress-fill" id="progress"></div>
+            </div>
+
+            <!-- PASO 1 -->
+            <div class="step active" id="step1">
+                <h3>Paso 1: Datos del Apoderado</h3>
+                <input id="apo_nombre" type="text" placeholder="Nombre del Apoderado">
+                <input id="apo_rut" type="text" placeholder="RUT (sin puntos ni guión, se permite 12345678-9)">
+                <input id="apo_telefono" type="text" placeholder="Teléfono (9 dígitos)">
+                <div class="btn-row">
+                    <button class="btn-next" onclick="validarPaso1()">Siguiente</button>
+                </div>
+            </div>
+
+            <!-- PASO 2 -->
+            <div class="step" id="step2">
+                <h3>Paso 2: Datos del Estudiante</h3>
+                <input id="est_nombre" type="text" placeholder="Nombre del Estudiante">
+                <input id="est_edad" type="number" placeholder="Edad">
+                <input id="est_curso" type="text" placeholder="Curso al que postula">
+                <div class="btn-row">
+                    <button class="btn-back" onclick="prevStep(2)">Volver</button>
+                    <button class="btn-next" onclick="validarPaso2()">Siguiente</button>
+                </div>
+            </div>
+
+            <!-- PASO 3 -->
+            <div class="step" id="step3">
+                <h3>Paso 3: Selección de Sede</h3>
+                <select id="sede">
+                    <option value="">Seleccione una sede</option>
+                    <option>Maipú</option>
+                    <option>San Bernardo</option>
+                    <option>Renca</option>
+                </select>
+                <div class="btn-row">
+                    <button class="btn-back" onclick="prevStep(3)">Volver</button>
+                    <button class="btn-next" onclick="validarPaso3()">Siguiente</button>
+                </div>
+            </div>
+
+            <!-- PASO 4 -->
+            <div class="step" id="step4">
+                <h3>Paso 4: Confirmación</h3>
+                <div id="resumen" style="text-align:left; width:80%; margin:0 auto; background:#f7feff; padding:12px; border-radius:8px; border:1px solid #e0f4fb;"></div>
+                <div class="btn-row">
+                    <button class="btn-back" onclick="prevStep(4)">Volver</button>
+                    <button class="btn-enviar" onclick="enviarMatricula()">Enviar Matrícula</button>
+                </div>
+            </div>
+
+        </div>
 
     </div>
 
-    <!-- ===== FOOTER ===== -->
+    <!-- FOOTER -->
     <footer>
         © 2025 Instituto Crecer Más — Todos los derechos reservados
     </footer>
+
+    <!-- MODAL (ALERTAS BONITAS) -->
+    <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="modal" id="modal">
+            <div class="m-logo"><img src="{% static 'img/logo5.png' %}" alt="logo"></div>
+            <h3 id="modalTitle">Título</h3>
+            <p id="modalMessage">Mensaje</p>
+            <div class="m-actions" id="modalActions">
+                <button class="m-btn ok" id="modalOkBtn">Aceptar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT -->
+    <script>
+        /* ---------- PROGRESO ---------- */
+        function setProgress(stepIndex) {
+            // stepIndex: 1..4
+            const percent = ((stepIndex - 1) / 3) * 100;
+            document.getElementById('progress').style.width = percent + '%';
+        }
+
+        function showStep(n) {
+            // hide all, show selected
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById('step' + i).classList.remove('active');
+            }
+            document.getElementById('step' + n).classList.add('active');
+            setProgress(n);
+            // if entering step4, build resumen (also built in validarPaso3)
+            if (n === 4) generarResumen();
+        }
+
+        function nextStep(current) { showStep(current + 1); }
+        function prevStep(current) { showStep(current - 1); }
+
+        /* ---------- VALIDACIONES ---------- */
+
+        // Helper: valida nombre (letras y espacios, acentos permitidos)
+        function validarNombre(valor) {
+            return /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/.test(valor.trim());
+        }
+
+        // Helper: valida telefono chile (9 dígitos, puede tener +56 o 0 prefijo - se limpia)
+        function validarTelefono(valor) {
+            const nums = valor.replace(/\D/g, '');
+            // permitir si viene con 56 +9 dígitos -> tomar últimos 9
+            if (nums.length === 11 && nums.startsWith('56')) {
+                return /^\d{11}$/.test(nums);
+            }
+            return /^\d{9}$/.test(nums);
+        }
+
+        // RUT validation (expects string like 12345678-5 or 123456785 or 1.234.567-5)
+        function validarRUT(rutRaw) {
+            if (!rutRaw) return false;
+            // normalize: remove dots and spaces
+            const rut = rutRaw.replace(/[\.\s]/g, '').replace(',', '.').toLowerCase();
+            let parts = rut.split('-');
+            if (parts.length === 2) {
+                var numero = parts[0];
+                var dv = parts[1];
+            } else {
+                // if no dash, last char is dv
+                var numero = rut.slice(0, -1);
+                var dv = rut.slice(-1);
+            }
+            numero = numero.replace(/^0+/, ''); // trim leading zeros
+            if (!/^\d+$/.test(numero)) return false;
+            // compute dv
+            let M = 0, S = 1;
+            for (; numero; numero = Math.floor(numero / 10)) {
+                S = (S + (numero % 10) * (9 - M++ % 6)) % 11;
+            }
+            let dvCalc = S ? String(S - 1) : 'k';
+            return dvCalc.toLowerCase() === dv.toLowerCase();
+        }
+
+        function validarEdad(valor) {
+            if (!valor) return false;
+            const n = Number(valor);
+            return Number.isInteger(n) && n >= 3 && n <= 120;
+        }
+
+        function validarCurso(valor) {
+            return valor.trim().length >= 1;
+        }
+
+        /* ---------- MODAL BONITO (Opción A) ---------- */
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalMessage = document.getElementById('modalMessage');
+        const modalOkBtn = document.getElementById('modalOkBtn');
+
+        function showModal(title, message, okCallback=null, autoCloseMs=0) {
+            modalTitle.textContent = title;
+            modalMessage.innerHTML = message;
+            modalOverlay.style.display = 'flex';
+            modalOverlay.setAttribute('aria-hidden', 'false');
+
+            function closeAndCallback() {
+                modalOverlay.style.display = 'none';
+                modalOverlay.setAttribute('aria-hidden', 'true');
+                modalOkBtn.removeEventListener('click', closeAndCallback);
+                if (okCallback) okCallback();
+            }
+
+            modalOkBtn.addEventListener('click', closeAndCallback);
+
+            if (autoCloseMs && autoCloseMs > 0) {
+                setTimeout(() => {
+                    // ensure still open
+                    if (modalOverlay.style.display === 'flex') closeAndCallback();
+                }, autoCloseMs);
+            }
+        }
+
+        /* ---------- PASOS: validaciones antes de avanzar ---------- */
+        function validarPaso1() {
+            const nombre = document.getElementById('apo_nombre').value.trim();
+            const rut = document.getElementById('apo_rut').value.trim();
+            const tel = document.getElementById('apo_telefono').value.trim();
+
+            let msgs = [];
+            if (!nombre) msgs.push('Ingrese el nombre del apoderado.');
+            else if (!validarNombre(nombre)) msgs.push('El nombre del apoderado solo debe contener letras y espacios.');
+
+            if (!rut) msgs.push('Ingrese el RUT del apoderado.');
+            else if (!validarRUT(rut)) msgs.push('RUT inválido. Revise el número y dígito verificador.');
+
+            if (!tel) msgs.push('Ingrese el teléfono del apoderado.');
+            else if (!validarTelefono(tel)) msgs.push('Teléfono inválido. Debe ser un número celular de 9 dígitos.');
+
+            if (msgs.length) {
+                showModal('Campos incompletos', '<ul style="text-align:left;margin:0 20px;">' + msgs.map(m => '<li>' + m + '</li>').join('') + '</ul>');
+                return;
+            }
+            nextStep(1);
+        }
+
+        function validarPaso2() {
+            const nombre = document.getElementById('est_nombre').value.trim();
+            const edad = document.getElementById('est_edad').value.trim();
+            const curso = document.getElementById('est_curso').value.trim();
+
+            let msgs = [];
+            if (!nombre) msgs.push('Ingrese el nombre del estudiante.');
+            else if (!validarNombre(nombre)) msgs.push('El nombre del estudiante solo debe contener letras y espacios.');
+
+            if (!edad) msgs.push('Ingrese la edad del estudiante.');
+            else if (!validarEdad(edad)) msgs.push('Edad inválida. Ingrese un número válido (3-120).');
+
+            if (!curso) msgs.push('Ingrese el curso al que postula el estudiante.');
+            else if (!validarCurso(curso)) msgs.push('Curso inválido.');
+
+            if (msgs.length) {
+                showModal('Campos incompletos', '<ul style="text-align:left;margin:0 20px;">' + msgs.map(m => '<li>' + m + '</li>').join('') + '</ul>');
+                return;
+            }
+            nextStep(2);
+        }
+
+        function validarPaso3() {
+            const s = document.getElementById('sede').value.trim();
+            if (!s) {
+                showModal('Seleccione sede', 'Por favor seleccione una sede para continuar.');
+                return;
+            }
+            generarResumen();
+            nextStep(3);
+        }
+
+        /* ---------- GENERAR RESUMEN ---------- */
+        function generarResumen() {
+            const summaryEl = document.getElementById('resumen');
+            const texto = `
+                <b>Apoderado:</b> ${escapeHtml(document.getElementById('apo_nombre').value)}<br>
+                <b>RUT:</b> ${escapeHtml(document.getElementById('apo_rut').value)}<br>
+                <b>Teléfono:</b> ${escapeHtml(document.getElementById('apo_telefono').value)}<br><br>
+                <b>Estudiante:</b> ${escapeHtml(document.getElementById('est_nombre').value)}<br>
+                <b>Edad:</b> ${escapeHtml(document.getElementById('est_edad').value)}<br>
+                <b>Curso:</b> ${escapeHtml(document.getElementById('est_curso').value)}<br><br>
+                <b>Sede seleccionada:</b> ${escapeHtml(document.getElementById('sede').value)}
+            `;
+            summaryEl.innerHTML = texto;
+        }
+
+        // small escape to avoid accidental HTML injection
+        function escapeHtml(unsafe) {
+            return String(unsafe)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        /* ---------- ENVÍO FINAL ---------- */
+        function enviarMatricula() {
+            // Aquí podrías realizar fetch/ajax a tu endpoint Django si lo deseas.
+            // Por ahora simulamos envío exitoso, mostramos modal bonito y reiniciamos.
+
+            // validar una última vez (por seguridad)
+            validarPaso1(); // but these call nextStep if valid; instead let's re-check quickly:
+            const checks = [
+                validarRUT(document.getElementById('apo_rut').value),
+                validarTelefono(document.getElementById('apo_telefono').value),
+                !!document.getElementById('est_nombre').value.trim(),
+                validarEdad(document.getElementById('est_edad').value),
+                !!document.getElementById('sede').value.trim()
+            ];
+            if (checks.includes(false)) {
+                showModal('Error', 'Hay datos inválidos. Revise los pasos anteriores.');
+                return;
+            }
+
+            // Mostrar modal de éxito con auto-cierre y luego reset completo al Paso 1
+            showModal('¡Matrícula enviada con éxito!', '<p>La matrícula ha sido registrada correctamente. Recibirá una confirmación por correo o teléfono.</p>', function() {
+                resetFormAndGoToStart();
+            }, 2500); // auto cierra en 2.5s y ejecuta okCallback
+
+            // Si quieres enviar a servidor, llamas a fetch() aquí y en el .then() haces el reset.
+        }
+
+        /* ---------- RESET ---------- */
+        function resetFormAndGoToStart() {
+            // limpiar inputs
+            const ids = ['apo_nombre','apo_rut','apo_telefono','est_nombre','est_edad','est_curso','sede'];
+            ids.forEach(i => {
+                const el = document.getElementById(i);
+                if (el) {
+                    if (el.tagName.toLowerCase() === 'select') el.selectedIndex = 0;
+                    else el.value = '';
+                }
+            });
+            // volver al paso 1
+            showStep(1);
+        }
+
+        // Inicializar progress al cargar
+        document.addEventListener('DOMContentLoaded', function() {
+            setProgress(1);
+        });
+
+        // Hacer accesible cierre con tecla ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modalOverlay.style.display === 'flex') {
+                // trigger click of OK
+                modalOkBtn.click();
+            }
+        });
+    </script>
 
 </body>
 </html>

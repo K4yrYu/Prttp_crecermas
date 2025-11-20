@@ -1,0 +1,180 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Administrador</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #c7eaff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* NAVBAR (igual que en tus otras páginas) */
+        nav {
+            width: 100%;
+            height: 70px;
+            background: #004d74;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0px 2px 5px rgba(0,0,0,0.3);
+            box-sizing: border-box;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo img {
+            height: 55px;
+            cursor: pointer;
+            border-radius: 12px;
+        }
+
+        .site-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: white;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 8px 10px;
+        }
+
+        nav ul li a:hover {
+            background: #006c9c;
+            border-radius: 5px;
+        }
+
+        /* CONTENIDO */
+        .content {
+            padding: 40px;
+            text-align: center;
+            flex: 1;
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #00334d;
+            margin-bottom: 40px;
+        }
+
+        /* CARDS DEL ADMIN */
+        .admin-cards {
+            width: 95%;
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .admin-card {
+            width: 320px;
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            text-align: center;
+            transition: 0.25s;
+            cursor: pointer;
+        }
+
+        .admin-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.28);
+        }
+
+        .admin-card img {
+            width: 90px;
+            margin-bottom: 20px;
+        }
+
+        .admin-card h2 {
+            font-size: 22px;
+            color: #004d74;
+            margin-bottom: 12px;
+        }
+
+        .admin-card p {
+            font-size: 15px;
+            color: #00334d;
+            line-height: 1.5;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #004d74;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: auto;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="nav-left">
+            <a href="/" class="logo">
+                <img src="{% static 'img/logo5.png' %}" alt="Instituto Crecer Más">
+            </a>
+            <div class="site-title">INSTITUTO CRECER MÁS / ADMINISTRADOR</div>
+        </div>
+
+    </nav>
+
+    <!-- CONTENIDO -->
+    <div class="content">
+        <h1>Panel de Administración</h1>
+
+        <div class="admin-cards">
+
+            <!-- GESTIÓN USUARIOS -->
+            <div class="admin-card" onclick="location.href='/administrador/usuarios/'">
+                <img src="https://cdn-icons-png.flaticon.com/512/456/456212.png" alt="Usuarios">
+                <h2>Gestión de Usuarios</h2>
+                <p>Modifica usuarios, asigna roles de estudiante o docente, y administra permisos.</p>
+            </div>
+
+            <!-- GESTIÓN MATRÍCULAS -->
+            <div class="admin-card" onclick="location.href='/administrador/matriculas/'">
+                <img src="https://cdn-icons-png.flaticon.com/512/992/992651.png" alt="Matrículas">
+                <h2>Gestión de Matrículas</h2>
+                <p>Controla las matrículas de los estudiantes, revisa historial y procesa nuevas inscripciones.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        © 2025 Instituto Crecer Más — Todos los derechos reservados
+    </footer>
+
+</body>
+</html>

@@ -17,7 +17,6 @@
             overflow: hidden;
         }
 
-        /* Animación suave al cargar */
         .fade-in {
             animation: fade 0.9s ease-in-out;
         }
@@ -93,6 +92,50 @@
         .back a:hover {
             text-decoration: underline;
         }
+
+        /* ALERTA */
+        .alerta {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.45);
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .alerta-box {
+            background: white;
+            width: 350px;
+            padding: 25px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+            animation: fade 0.3s ease;
+        }
+
+        .alerta-logo {
+            width: 120px;
+            margin-bottom: 10px;
+        }
+
+        .alerta p {
+            font-size: 17px;
+            color: #004d74;
+            margin-bottom: 20px;
+        }
+
+        .alerta button {
+            background: #004d74;
+            color: white;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 15px;
+        }
     </style>
 
 </head>
@@ -100,16 +143,13 @@
 
     <div class="login-box fade-in">
 
-        <!-- LOGO -->
         <img src="{% static 'img/logo.png' %}" alt="Logo" class="logo">
-
         <h2>Iniciar Sesión</h2>
 
-        <form method="POST" style="width: 100%;">
-            {% csrf_token %}
+        <form onsubmit="return validarLogin()">
 
-            <input type="email" name="email" placeholder="Correo" required>
-            <input type="password" name="password" placeholder="Contraseña" required>
+            <input id="email" type="email" name="email" placeholder="Correo" required>
+            <input id="password" type="password" name="password" placeholder="Contraseña" required>
 
             <button type="submit">Ingresar</button>
 
@@ -119,6 +159,57 @@
         </form>
 
     </div>
+
+
+    <!-- ALERTA PERSONALIZADA -->
+    <div class="alerta" id="alerta">
+        <div class="alerta-box">
+            <img src="{% static 'img/logo.png' %}" class="alerta-logo">
+            <p id="alertaMensaje"></p>
+            <button onclick="cerrarAlerta()">Aceptar</button>
+        </div>
+    </div>
+
+
+<script>
+function validarLogin() {
+    let email = document.getElementById("email").value.trim();
+    let pass = document.getElementById("password").value.trim();
+
+    // LISTA DE USUARIOS
+    const usuarios = {
+        "estudiante@gmail.com": { pass: "estudiante@", url: "/estudiantes/" },
+        "docente@gmail.com":    { pass: "docente@",    url: "/docentes/" },
+        "directivo@gmail.com":  { pass: "directivo@",  url: "/directivos/" },
+        "admin@gmail.com":      { pass: "admin@",      url: "/administrador/" }
+    };
+
+    // VALIDAR SI EL USUARIO EXISTE
+    if (!(email in usuarios)) {
+        mostrarAlerta("Correo o Contraseña Incorrectos");
+        return false;
+    }
+
+    // VALIDAR CONTRASEÑA
+    if (usuarios[email].pass !== pass) {
+        mostrarAlerta("Correo o Contraseña Incorrectos");
+        return false;
+    }
+
+    // SI TODO ES CORRECTO → REDIRIGE
+    window.location.href = usuarios[email].url;
+    return false;
+}
+
+function mostrarAlerta(msg) {
+    document.getElementById("alertaMensaje").innerText = msg;
+    document.getElementById("alerta").style.display = "flex";
+}
+
+function cerrarAlerta() {
+    document.getElementById("alerta").style.display = "none";
+}
+</script>
 
 </body>
 </html>
